@@ -1,18 +1,15 @@
 phases:
-  install:
+  pre_build:
     commands:
       - echo installing nodejs...
       - curl -sL https://deb.nodesource.com/setup_14.x | bash -
       - apt-get install -y nodejs
-  pre_build:
-    commands:
       - echo installing dependencies...
+  build:
+    commands:
       - npm install
       - echo "testing......"
       - ./node_modules/mocha/bin/mocha
-  build:
-    commands:
-      - echo "starting building..."
   post_build:
     commands:
       - echo Build completed on `date`
