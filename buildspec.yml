@@ -12,7 +12,7 @@ phases:
     commands:
       - npm install
       - echo "testing......"
-      - ./node_modules/mocha/bin/mocha
+      - ./node_modules/mocha/bin/mocha --exit
   post_build:
     commands:
       - echo Build completed on `date`
