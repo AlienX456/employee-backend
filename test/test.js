@@ -43,7 +43,9 @@ const pool = new Pool({
 
 /*
 
-pruebas de integración
+Remember erase jill before each integration test
+
+*/
 
  describe('employees', function() {
     describe('GET', function(){
@@ -73,4 +75,3 @@ pruebas de integración
         });
     })
 });
-*/
