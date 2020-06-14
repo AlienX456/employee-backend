@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo 'installing nodejs...'
 apt update
 apt install python-software-properties
