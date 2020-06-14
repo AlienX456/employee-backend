@@ -1,0 +1,20 @@
+phases:
+  install:
+    commands:
+      - echo installing nodejs...
+      - curl -sL https://deb.nodesource.com/setup_14.x | bash -
+      - apt-get install -y nodejs
+  pre_build:
+    commands:
+      - echo installing dependencies...
+      - npm install
+      - echo "testing......"
+      - ./node_modules/mocha/bin/mocha
+  build:
+    commands:
+      - echo "starting building..."
+artifacts:
+  files:
+    - "**/*"
+  discard-paths: no
+  base-directory: dist/testangularbanco
