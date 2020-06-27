@@ -16,7 +16,9 @@ jobs:
           steps:
             - run: npm install
       - run: npm test -- --grep "unit tests" --exit
-  build:
+  deploy:
+    requires:
+      - test
     docker:
       - image: 14.4.0-stretch-slim
     enviroment:
@@ -33,4 +35,4 @@ workflows:
           matrix:
             parameters:
               node-version: ["14.4.0"]
-      - build
+      - deploy
