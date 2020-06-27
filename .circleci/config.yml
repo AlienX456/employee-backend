@@ -17,11 +17,9 @@ jobs:
             - run: npm install
       - run: npm test -- --grep "unit tests" --exit
   deploy:
-    requires:
-      - test
     docker:
       - image: 14.4.0-stretch-slim
-    enviroment:
+    environment:
       NODE_ENV: production 
     steps:
       - run: echo Installing heroku cli
@@ -35,4 +33,6 @@ workflows:
           matrix:
             parameters:
               node-version: ["14.4.0"]
-      - deploy
+      - deploy:
+        requires:
+          - test
