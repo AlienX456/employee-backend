@@ -27,7 +27,7 @@ jobs:
       - run: heroku --version
     
 workflows:
-  test-deploy::
+  test-deploy:
     jobs:
       - test:
           matrix:
