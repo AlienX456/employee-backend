@@ -23,7 +23,7 @@ const pool = new Pool({
  describe('unit tests', function() {
         it('Compare sql when gets an Employee', function(done){
             request.get('/testEmployee').send({"id":1})
-            .expect(200, {status:'SELECT * FROM employee_schema.employee WHERE id=1'}, done)
+            .expect(200, {status:'SELECT x* FROM employee_schema.employee WHERE id=1'}, done)
         }),
         it('Compare sql string when try to insert', function(done){
             request.post('/testInsertEmployee').send( {
