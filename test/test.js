@@ -20,7 +20,7 @@ const pool = new Pool({
 
  var request = request("http://localhost:4000")
 
- describe('Unit tests', function() {
+ describe('unit tests', function() {
         it('Compare sql when gets an Employee', function(done){
             request.get('/testEmployee').send({"id":1})
             .expect(200, {status:'SELECT * FROM employee_schema.employee WHERE id=1'}, done)
@@ -47,7 +47,7 @@ Remember erase jill before each integration test
 
 */
 
- describe('Integration', function() {
+ describe('tests integration', function() {
     describe('GET', function(){
         it('Content-Type must be json for list of employees', function(done){
             request.get('/employee-all')
