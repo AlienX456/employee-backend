@@ -15,7 +15,7 @@ jobs:
       - node/with-cache:
           steps:
             - run: npm install
-      - run: npm test -- --grep "unit tests"
+      - run: npm test -- --grep "unit tests" --exit
 workflows:
   test:
     jobs:
