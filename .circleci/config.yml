@@ -16,6 +16,16 @@ jobs:
           steps:
             - run: npm install
       - run: npm test -- --grep "unit tests" --exit
+  build:
+    docker:
+      - image: 14.4.0-stretch-slim
+    enviroment:
+      NODE_ENV: production 
+    steps:
+      - run: echo Installing heroku cli
+      - run: npm install -g heroku
+      - run: heroku --version
+    
 workflows:
   test:
     jobs:
