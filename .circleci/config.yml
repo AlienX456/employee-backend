@@ -34,5 +34,5 @@ workflows:
             parameters:
               node-version: ["14.4.0"]
       - deploy:
-        requires:
-          - test
+          requires:
+            - test
