@@ -18,15 +18,10 @@ jobs:
       - run: npm test -- --grep "unit tests" --exit
   deploy:
     docker:
-      - image: alpine:latest
+      - image: node:14.4.0-alpine3.12
     environment:
       NODE_ENV: production 
     steps:
-      - run: echo "Installing node"
-      - run: apk add bash
-      - run: wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.31.1/install.sh | bash
-      - run: . ~/.bashrc
-      - run: nvm install 14.4.0
       - run: echo "Installing heroku cli"
       - run: npm install -g heroku
       - run: heroku --version
