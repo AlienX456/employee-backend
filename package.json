@@ -10,5 +10,8 @@
         "mocha": "^8.0.1",
         "pg": "^8.2.1",
         "supertest": "^4.0.2"
+    },
+    "scripts": {
+        "test": "./node_modules/mocha/bin/mocha"
     }
 }
