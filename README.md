@@ -6,7 +6,7 @@ Using:
 2. Code Pipeline
 3. EC2
 
-4. Serve on : 54.146.87.2:4000/
+4. Serve on : https://employee-backend-bogota.herokuapp.com/
 
     GET /employee -- Get an employee | non use for now (body required type {id:number})
 
