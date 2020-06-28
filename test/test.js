@@ -1,9 +1,11 @@
  //DEPENDENCIES
 
 //PORT FOR SERVE
-const port = 4000
+const port = process.env.PORT
+
 
 const Pool = require('pg').Pool
+
 const pool = new Pool({
     connectionString: process.env.CONNECTION_STRING,
   })
