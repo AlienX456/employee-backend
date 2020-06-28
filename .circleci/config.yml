@@ -35,7 +35,7 @@ jobs:
             - run: npm install
       - run:
           name: Running script to prepare integration tests
-          command: node ./test/prepareIT.js 
+          command: node ./prepare/prepareIT.js 
       - run: 
           name: Running Integration tests
           command: npm test -- --grep "INTEGRATION TESTS" --exit

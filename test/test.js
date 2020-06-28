@@ -78,7 +78,7 @@ const pool = new Pool({
                .expect('Content-Type', /json/)
                .expect(200)
                .end(function(err,res){
-                assert(res.body, JSON.stringify
+                assert.equal(JSON.stringify(res.body), JSON.stringify
                                 (
                                 [
                                     {
@@ -106,7 +106,7 @@ const pool = new Pool({
                .expect('Content-Type', /json/)
                .expect(200)
                .end(function(err,res){
-                    assert(res.body, JSON.stringify
+                    assert.equal(JSON.stringify(res.body), JSON.stringify
                                 (
                                 {
                                     id: 1,
