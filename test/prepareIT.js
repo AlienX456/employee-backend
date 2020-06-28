@@ -8,5 +8,5 @@ const pool = new Pool({
 
 pool.query("DELETE FROM employee_schema.employee")
     .then(result => console.log('Data succesfully removed for testing'))
-    .catch(e => {throw new Error(error)})
+    .catch(e => console.error(e))
     .finally(() => pool.end())
