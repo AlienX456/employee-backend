@@ -4,7 +4,7 @@ orbs:
   heroku: circleci/heroku@0.0.10
 
 jobs:
-  test:
+  unit_test:
     parameters:
       node-version:
         type: string
@@ -20,14 +20,44 @@ jobs:
       - run: 
           name: Running unit tests
           command: npm test -- --grep "unit tests" --exit
+  integration-prepare:
+    executor:
+      name: heroku/default
+    steps:
+      - heroku/install
+      - run:
+          name: Installing PSQL
+          command: apt install -y postgresql-client || true
+      - checkout
+      - run:
+          name: Removing test insert from bd
+          command: heroku pg:psql -a $HEROKU_BDAPP_NAME < ./test/integration_delete.sql 
+  integration-test:
+    parameters:
+      node-version:
+        type: string
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/install:
+          node-version: << parameters.node-version >>
+      - node/with-cache:
+          steps:
+            - run: npm install
+      - run: 
+          name: Running unit tests
+          command: npm test -- --grep "tests integration" --exit
+
 
 workflows:
   test-deploy:
     jobs:
-      - test:
-          matrix:
-            parameters:
-              node-version: ["14.4.0"]
+      # - unit_test:
+      #     matrix:
+      #       parameters:
+      #         node-version: ["14.4.0"]
+      - integration-prepare
       - heroku/deploy-via-git:
           requires:
             - test

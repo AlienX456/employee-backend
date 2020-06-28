@@ -1,0 +1,1 @@
+DELETE FROM employee_schema.employee WHERE id=11111111
