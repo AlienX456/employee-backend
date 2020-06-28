@@ -27,7 +27,7 @@ jobs:
       - heroku/install
       - run:
           name: Installing PSQL
-          command: apt install -y postgresql-client || true
+          command: apt install -y postgresql postgresql-contrib
       - checkout
       - run:
           name: Removing test insert from bd
