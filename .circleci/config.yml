@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   node: circleci/node@1.1.6
+  heroku: circleci/heroku@0.0.10
 jobs:
   test:
     parameters:
@@ -16,17 +17,17 @@ jobs:
           steps:
             - run: npm install
       - run: npm test -- --grep "unit tests" --exit
-  deploy:
-    docker:
-      - image: node:14.4.0-alpine3.12
-    steps:
-      - run: npm install -g heroku
-      - run: apk add --no-cache git
-      - checkout
-      - run: git add .
-      - run: git commit -m "Ready to deploy to heroku"
-      - run: heroku git:remote -a employee-backend-bogota
-      - run: git push heroku master 
+  # deploy:
+  #   docker:
+  #     - image: node:14.4.0-alpine3.12
+  #   steps:
+  #     - run: npm install -g heroku
+  #     - run: apk add --no-cache git
+  #     - checkout
+  #     - run: git add .
+  #     - run: git commit -m "Ready to deploy to heroku"
+  #     - run: heroku git:remote -a employee-backend-bogota
+  #     - run: git push heroku master 
     
 workflows:
   test-deploy:
@@ -35,6 +36,7 @@ workflows:
           matrix:
             parameters:
               node-version: ["14.4.0"]
-      - deploy:
-          requires:
-            - test
+      - heroku/deploy-via-git
+      # - deploy:
+      #     requires:
+      #       - test
