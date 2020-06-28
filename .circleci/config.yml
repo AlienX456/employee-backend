@@ -2,6 +2,7 @@ version: 2.1
 orbs:
   node: circleci/node@1.1.6
   heroku: circleci/heroku@0.0.10
+
 jobs:
   test:
     parameters:
@@ -19,18 +20,7 @@ jobs:
       - run: 
           name: Running unit tests
           command: npm test -- --grep "unit tests" --exit
-  # deploy:
-  #   docker:
-  #     - image: node:14.4.0-alpine3.12
-  #   steps:
-  #     - run: npm install -g heroku
-  #     - run: apk add --no-cache git
-  #     - checkout
-  #     - run: git add .
-  #     - run: git commit -m "Ready to deploy to heroku"
-  #     - run: heroku git:remote -a employee-backend-bogota
-  #     - run: git push heroku master 
-    
+
 workflows:
   test-deploy:
     jobs:
@@ -41,6 +31,6 @@ workflows:
       - heroku/deploy-via-git:
           requires:
             - test
-      # - deploy:
-      #     requires:
-      #       - test
+          filters:
+            branches:
+              only: master
