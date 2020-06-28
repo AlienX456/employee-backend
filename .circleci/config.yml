@@ -4,7 +4,7 @@ orbs:
   heroku: circleci/heroku@0.0.10
 
 jobs:
-  test:
+  unit_test:
     parameters:
       node-version:
         type: string
@@ -19,18 +19,42 @@ jobs:
             - run: npm install
       - run: 
           name: Running unit tests
-          command: npm test -- --grep "unit tests" --exit
+          command: npm test -- --grep "UNIT TESTS" --exit
+  integration-test:
+    parameters:
+      node-version:
+        type: string
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/install:
+          node-version: << parameters.node-version >>
+      - node/with-cache:
+          steps:
+            - run: npm install
+      - run:
+          name: Running script to prepare integration tests
+          command: node ./prepare/prepareIT.js 
+      - run: 
+          name: Running Integration tests
+          command: npm test -- --grep "INTEGRATION TESTS" --exit
+
 
 workflows:
   test-deploy:
     jobs:
-      - test:
+      - unit_test:
+          matrix:
+            parameters:
+              node-version: ["14.4.0"]
+      - integration-test:
           matrix:
             parameters:
               node-version: ["14.4.0"]
       - heroku/deploy-via-git:
           requires:
-            - test
+            - integration-test
           filters:
             branches:
               only: master
