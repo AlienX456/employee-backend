@@ -20,13 +20,10 @@ jobs:
     docker:
       - image: node:14.4.0-alpine3.12
     steps:
-      - run: echo "Installing heroku cli"
       - run: npm install -g heroku
-      - run: heroku --version
-      - run: echo "installing git"
       - run: apk add --no-cache git
       - checkout
-      - run: echo "Deploying project on heroku"
+      - run: ls -al
       - run: heroku git:remote -a employee-backend-bogota
       - run: git push heroku $CIRCLE_BRANCH:master 
     
