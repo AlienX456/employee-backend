@@ -54,7 +54,7 @@ workflows:
               node-version: ["14.4.0"]
       - heroku/deploy-via-git:
           requires:
-            - integration-prepare
+            - integration-test
           filters:
             branches:
               only: master
