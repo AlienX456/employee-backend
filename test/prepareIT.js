@@ -11,6 +11,6 @@ pool.query("DELETE FROM employee_schema.employee")
     .catch(e => error = e)
     .finally(() => pool.end())
 
-if (error){
+if (error!=null){
     throw new Error(e)
 }
