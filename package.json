@@ -12,6 +12,7 @@
         "supertest": "^4.0.2"
     },
     "scripts": {
-        "test": "./node_modules/mocha/bin/mocha"
+        "test": "./node_modules/mocha/bin/mocha",
+        "start": "node index.js"
     }
 }

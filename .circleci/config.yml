@@ -1,6 +1,8 @@
 version: 2.1
 orbs:
   node: circleci/node@1.1.6
+  heroku: circleci/heroku@0.0.10
+
 jobs:
   test:
     parameters:
@@ -15,11 +17,20 @@ jobs:
       - node/with-cache:
           steps:
             - run: npm install
-      - run: npm test -- --grep "unit tests" --exit
+      - run: 
+          name: Running unit tests
+          command: npm test -- --grep "unit tests" --exit
+
 workflows:
-  test:
+  test-deploy:
     jobs:
       - test:
           matrix:
             parameters:
               node-version: ["14.4.0"]
+      - heroku/deploy-via-git:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master

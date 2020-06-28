@@ -8,12 +8,11 @@ const db = require('./queries')
 
 
 //PORT FOR SERVE
-const port = 4000
+const port = process.env.PORT
 
 
-app.use(cors());
-app.use(express.json());
-
+app.use(cors())
+app.use(express.json())
 //API OPERATIONS
 
 app.get('/employee',db.getEmployee)
@@ -22,9 +21,9 @@ app.get('/employee-all',db.getAllEmployee)
 
 app.post('/employee',db.createEmployee)
 
-app.post('/testInsertEmployee',db.sqlReviewCreate);
+app.post('/testInsertEmployee',db.sqlReviewCreate)
 
-app.get('/testEmployee',db.sqlReviewGetEmployee);
+app.get('/testEmployee',db.sqlReviewGetEmployee)
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
