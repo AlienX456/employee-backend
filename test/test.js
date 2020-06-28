@@ -5,13 +5,8 @@ const port = 4000
 
 const Pool = require('pg').Pool
 const pool = new Pool({
-  user: 'admin',
-  host: 'localhost',
-  database: 'employee_db',
-  password: 'admin01',
-  port: 6000,
-})
-
+    connectionString: process.env.CONNECTION_STRING,
+  })
 
  
  var assert = require('assert');
