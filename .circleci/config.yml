@@ -60,7 +60,7 @@ workflows:
       - integration-prepare
       - heroku/deploy-via-git:
           requires:
-            - test
+            - integration-prepare
           filters:
             branches:
               only: master
