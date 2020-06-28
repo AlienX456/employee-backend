@@ -23,7 +23,8 @@ jobs:
       - run: npm install -g heroku
       - run: apk add --no-cache git
       - checkout
-      - run: git status
+      - run: git add .
+      - run: git commit -m "Ready to deploy to heroku"
       - run: heroku git:remote -a employee-backend-bogota
       - run: git push heroku $CIRCLE_BRANCH:master 
     
