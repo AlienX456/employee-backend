@@ -19,19 +19,7 @@ jobs:
             - run: npm install
       - run: 
           name: Running unit tests
-          command: npm test -- --grep "unit tests" --exit
-  integration-prepare:
-    executor:
-      name: heroku/default
-    steps:
-      - heroku/install
-      - run:
-          name: Installing PSQL
-          command: apt install -y postgresql postgresql-contrib
-      - checkout
-      - run:
-          name: Removing test insert from bd
-          command: heroku pg:psql -a $HEROKU_BDAPP_NAME < ./test/integration_delete.sql 
+          command: npm test -- --grep "UNIT TESTS" --exit
   integration-test:
     parameters:
       node-version:
@@ -45,9 +33,12 @@ jobs:
       - node/with-cache:
           steps:
             - run: npm install
+      - run:
+          name: Running script to prepare integration tests
+          command: node ./test/prepareIT.js 
       - run: 
-          name: Running unit tests
-          command: npm test -- --grep "tests integration" --exit
+          name: Running Integration tests
+          command: npm test -- --grep "INTEGRATION TESTS" --exit
 
 
 workflows:
@@ -57,7 +48,7 @@ workflows:
       #     matrix:
       #       parameters:
       #         node-version: ["14.4.0"]
-      - integration-prepare
+      - integration-test
       - heroku/deploy-via-git:
           requires:
             - integration-prepare

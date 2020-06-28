@@ -13,15 +13,19 @@ const pool = new Pool({
  
  var assert = require('assert');
  var request = require('supertest')
+ const expect = require('supertest').expect;
+
  var app = require('../index.js')
 
- var request = request("http://localhost:4000")
+ var request = request("http://localhost:"+port)
 
- describe('unit tests', function() {
+ describe('UNIT TESTS', function() {
         it('Compare sql when gets an Employee', function(done){
             request.get('/testEmployee').send({"id":1})
             .expect(200, {status:'SELECT * FROM employee_schema.employee WHERE id=1'}, done)
         }),
+
+
         it('Compare sql string when try to insert', function(done){
             request.post('/testInsertEmployee').send( {
                                                         id: 11111111,
@@ -37,32 +41,14 @@ const pool = new Pool({
 
 
 
+ describe('INTEGRATION TESTS', function() {
 
-/*
 
-Remember erase jill before each integration test
+    describe('Registering employees', function(){
 
-*/
-
- describe('tests integration', function() {
-    describe('GET', function(){
-        it('Content-Type must be json for list of employees', function(done){
-            request.get('/employee-all')
-               .expect('Content-Type', /json/)
-               .expect(200, done);
-        });
-    }),
-    describe('GET', function(){
-        it('Content-Type must be json for an employee', function(done){
-            request.get('/employee').send({"id":1})
-               .expect('Content-Type', /json/)
-               .expect(200, done);
-        });
-    })
-    describe('POST', function(){
-        it('Test register employee', function(done){
+        it('employee without boss', function(done){
             request.post('/employee').send( {
-                                                id: 11111111,
+                                                id: 1,
                                                 fullname: "Jill Valentine",
                                                 boss: null,
                                                 employeeFunction: "Security"
@@ -70,5 +56,71 @@ Remember erase jill before each integration test
                .expect('Content-Type', /json/)
                .expect(201, done);
         });
+
+
+        it('employee with boss', function(done){
+            request.post('/employee').send( {
+                                                id: 2,
+                                                fullname: "Claire Redfield",
+                                                boss: 1,
+                                                employeeFunction: "Security Assistant"
+                                            })
+               .expect('Content-Type', /json/)
+               .expect(201, done);
+        });
     })
+
+    describe('Getting employee(s)', function(){
+
+        
+        it('Content-Type must be json, should return current employee list on test db', function(done){
+            request.get('/employee-all')
+               .expect('Content-Type', /json/)
+               .expect(200)
+               .end(function(err,res){
+                assert(res.body, JSON.stringify
+                                (
+                                [
+                                    {
+                                        "id": 1,
+                                        "fullname": "Jill Valentine",
+                                        "boss": null,
+                                        "function": "Security"
+                                    },
+                                    {
+                                        "id": 2,
+                                        "fullname": "Claire Redfield",
+                                        "boss": 1,
+                                        "function": "Security Assistant"
+                                    }
+                                ]
+                                )
+                )
+                done()
+            })
+        });
+
+
+        it('Content-Type must be json for an employee, must return employee with id 1 on test db', function(done){
+            request.get('/employee').send({"id":1})
+               .expect('Content-Type', /json/)
+               .expect(200)
+               .end(function(err,res){
+                    assert(res.body, JSON.stringify
+                                (
+                                {
+                                    id: 1,
+                                    fullname: 'Jill Valentine',
+                                    boss: null,
+                                    function: 'Security'
+                                }
+                                )
+                    )
+                    done()
+               })
+        });
+
+
+    })
+
 });
