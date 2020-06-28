@@ -2,11 +2,10 @@
 
 Using:
 
-1. Code Deploy
-2. Code Pipeline
-3. EC2
+1. CIRCLE CI
+2. HEROKU
 
-4. Serve on : https://employee-backend-bogota.herokuapp.com/
+3. Serve on : https://employee-backend-bogota.herokuapp.com/
 
     GET /employee -- Get an employee | non use for now (body required type {id:number})
 
