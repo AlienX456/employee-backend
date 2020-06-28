@@ -36,7 +36,9 @@ workflows:
           matrix:
             parameters:
               node-version: ["14.4.0"]
-      - heroku/deploy-via-git
+      - heroku/deploy-via-git:
+          requires:
+            - test
       # - deploy:
       #     requires:
       #       - test
