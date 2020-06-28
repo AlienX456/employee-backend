@@ -44,10 +44,10 @@ jobs:
 workflows:
   test-deploy:
     jobs:
-      # - unit_test:
-      #     matrix:
-      #       parameters:
-      #         node-version: ["14.4.0"]
+      - unit_test:
+          matrix:
+            parameters:
+              node-version: ["14.4.0"]
       - integration-test:
           matrix:
             parameters:
