@@ -8,9 +8,10 @@ var error = null;
 
 pool.query("DELETE FROM employee_schema.employee")
     .then(result => console.log('Data succesfully removed for testing'))
-    .catch(e => console.error(e))
+    .catch(e => {error = e})
     .finally(() => pool.end())
 
 if (error!=null){
+    console.error(error);
     process.exit(1);
 }
