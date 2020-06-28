@@ -28,7 +28,7 @@ jobs:
       - checkout
       - run: echo "Deploying project on heroku"
       - run: heroku git:remote -a employee-backend-bogota
-      - run: heroku push heroku $CIRCLE_BRANCH:master 
+      - run: git push heroku $CIRCLE_BRANCH:master 
     
 workflows:
   test-deploy:
