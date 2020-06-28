@@ -17,13 +17,13 @@ jobs:
             - run: npm install
       - run: npm test -- --grep "unit tests" --exit
   deploy:
-    - checkout
     docker:
       - image: node:14.4.0-alpine3.12
     steps:
       - run: echo "Installing heroku cli"
       - run: npm install -g heroku
       - run: heroku --version
+      - checkout
       - run: echo "Deploying project on heroku"
       - run: heroku git:remote -a employee-backend-bogota
       - run: heroku push heroku $CIRCLE_BRANCH:master 
